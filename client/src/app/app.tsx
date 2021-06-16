@@ -1,21 +1,27 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect } from "react";
+import socket from "../socket";
 import styles from "./app.module.scss";
 
 function App() {
-  const [responseMessage, setResponseMessage] = useState("");
-
   useEffect(() => {
-    axios.get("/api/hello").then((response) => {
-      const body = response?.data?.body;
-      setResponseMessage(body);
-    });
-  });
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
+
+  const handleMouseDown = () => {
+    socket.emit("mouse down", () => {});
+  };
+
+  const handleMouseUp = () => {
+    socket.emit("mouse up", () => {});
+  };
 
   return (
     <div className={styles.App}>
-      <h1>Hello from the typescript frontend!</h1>
-      <h1>{responseMessage}</h1>
+      <button type="button" onMouseDown={handleMouseDown} onMouseUp={handleMouseUp}>
+        Connect
+      </button>
     </div>
   );
 }

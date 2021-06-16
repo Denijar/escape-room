@@ -21,6 +21,7 @@
   },
   "plugins": ["@typescript-eslint"],
   "rules": {
-    "prettier/prettier": ["error", {}, { "usePrettierrc": true }]
+    "prettier/prettier": ["error", { "endOfLine": "auto" }, { "usePrettierrc": true }],
+    "no-console": "warn"
   }
 }
