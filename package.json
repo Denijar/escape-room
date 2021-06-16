@@ -1,0 +1,72 @@
+{
+  "name": "starter-react-app",
+  "version": "1.0.0",
+  "description": "Boilerplate starter React app with Heroku deployment",
+  "engines": {
+    "node": "14.x"
+  },
+  "scripts": {
+    "test": "jest",
+    "start:client": "cd client && npm start",
+    "start:server": "ts-node-dev --respawn --pretty --transpile-only index.ts",
+    "start": "concurrently --kill-others-on-fail \"npm run start:client\" \"npm run start:server\"",
+    "build:client": "cd client && npm run build && mkdirp ../build/ && cp -R build/. ../build/client/",
+    "build:server": "tsc --project ./",
+    "build": "npm run build:server && npm run build:client",
+    "heroku-postbuild": "npm run build:server && cd client && npm install && npm run build && mkdirp ../build/ && cp -R build/. ../build/client/",
+    "start-prod": "cross-env NODE_ENV=production node -r esm build/index.js",
+    "lint": "eslint --fix --ext .ts,.tsx .",
+    "format": "prettier --write .",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "*": [
+      "prettier --write --ignore-unknown"
+    ],
+    "*.{ts,tsx}": [
+      "eslint --fix"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Denijar/starter-react-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Denijar/starter-react-app/issues"
+  },
+  "homepage": "https://github.com/Denijar/starter-react-app#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
+    "esm": "^3.2.25",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@babel/preset-typescript": "^7.14.5",
+    "@types/cors": "^2.8.10",
+    "@types/express": "^4.17.12",
+    "@types/jest": "^26.0.23",
+    "@types/node": "^15.12.2",
+    "@typescript-eslint/eslint-plugin": "^4.27.0",
+    "@typescript-eslint/parser": "^4.26.1",
+    "concurrently": "^6.2.0",
+    "eslint": "^7.28.0",
+    "eslint-config-airbnb-typescript": "^12.3.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "husky": "^6.0.0",
+    "jest": "^26.6.0",
+    "lint-staged": "^11.0.0",
+    "mkdirp": "^1.0.4",
+    "prettier": "^2.3.1",
+    "ts-jest": "^26.5.6",
+    "ts-node-dev": "^1.1.6",
+    "typescript": "^4.3.2"
+  }
+}

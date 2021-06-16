@@ -1,0 +1,26 @@
+{
+  "root": true,
+  "env": {
+    "jest": true,
+    "browser": true,
+    "amd": true,
+    "node": true
+  },
+  "extends": [
+    "airbnb-typescript",
+    "plugin:prettier/recommended" // Make this the last element so prettier config overrides other formatting rules
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "project": ["./tsconfig.json", "./client/tsconfig.json"]
+  },
+  "plugins": ["@typescript-eslint"],
+  "rules": {
+    "prettier/prettier": ["error", {}, { "usePrettierrc": true }]
+  }
+}
