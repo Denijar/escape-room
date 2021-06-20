@@ -1,3 +1,12 @@
 .button {
   height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1d2951;
+  color: white;
+}
+
+.button:active {
+  background-color: #016064;
 }
