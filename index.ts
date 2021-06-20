@@ -1,7 +1,10 @@
 // Import dependencies
 import express, { NextFunction, Request, Response } from "express";
 import cors from "cors";
+import http from "http";
 import path from "path";
+import { Server as IOServer } from "socket.io";
+import type { StatusEventData } from "./common/event-data-types";
 
 // Import routes
 import api from "./server/routes";
@@ -39,6 +42,43 @@ app.get("*", (req: Request, res: Response) => {
   res.sendStatus(404);
 });
 
+const server = http.createServer(app);
+
 // Configure our server to listen on the port defined by our port variable
 // eslint-disable-next-line no-console
-app.listen(port, () => console.log(`BACK_END_SERVICE_PORT: ${port}`));
+server.listen(port, () => console.log(`BACK_END_SERVICE_PORT: ${port}`));
+
+const io = new IOServer(server);
+
+let totalMiceDown: number = 0;
+const miceNeeded: number = 2;
+
+io.on("connection", (socket) => {
+  let statusEventData: StatusEventData = {
+    totalMiceDown,
+    miceNeeded
+  };
+  socket.emit("status", statusEventData);
+
+  socket.on("mouse down", () => {
+    totalMiceDown += 1;
+
+    statusEventData = {
+      totalMiceDown,
+      miceNeeded
+    };
+    io.emit("status", statusEventData);
+    if (totalMiceDown === miceNeeded) io.emit("success");
+  });
+
+  socket.on("mouse up", () => {
+    totalMiceDown -= 1;
+
+    statusEventData = {
+      totalMiceDown,
+      miceNeeded
+    };
+    io.emit("status", statusEventData);
+    if (totalMiceDown === miceNeeded) io.emit("success");
+  });
+});

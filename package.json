@@ -6,7 +6,9 @@
     "node": "14.x"
   },
   "scripts": {
-    "test": "jest",
+    "test:client": "cd client && npm run test",
+    "test:server": "jest",
+    "test": "npm run test:client && npm run test:server",
     "start:client": "cd client && npm start",
     "start:server": "ts-node-dev --respawn --pretty --transpile-only index.ts",
     "start": "concurrently --kill-others-on-fail \"npm run start:client\" \"npm run start:server\"",
@@ -41,7 +43,8 @@
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
     "esm": "^3.2.25",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "socket.io": "^4.1.2"
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.14.5",

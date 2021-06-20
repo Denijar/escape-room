@@ -1,8 +1,8 @@
 import React, { render, screen } from "@testing-library/react";
 import App from ".";
 
-test("renders hello from the typescript frontend text", () => {
+test("renders question marks before status event", () => {
   render(<App />);
-  const linkElement = screen.getByText(/Hello from the typescript frontend!/i);
-  expect(linkElement).toBeInTheDocument();
+  const text = screen.getByText("? OUT OF ?");
+  expect(text).toBeInTheDocument();
 });

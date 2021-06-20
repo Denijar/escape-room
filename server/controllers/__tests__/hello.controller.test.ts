@@ -5,11 +5,9 @@ describe("Game controller", () => {
     it("should respond with hello message on get", () => {
       const req: any = {};
       const json = jest.fn();
-      const status = jest.fn(() => {
-        return {
-          json
-        };
-      });
+      const status = jest.fn(() => ({
+        json
+      }));
       const res: any = {
         status
       };
