@@ -68,17 +68,26 @@ io.on("connection", (socket) => {
       miceNeeded
     };
     io.emit("status", statusEventData);
-    if (totalMiceDown === miceNeeded) io.emit("success");
+    if (totalMiceDown >= miceNeeded) io.emit("success");
   });
 
   socket.on("mouse up", () => {
-    totalMiceDown -= 1;
+    totalMiceDown = totalMiceDown ? totalMiceDown - 1 : 0;
 
     statusEventData = {
       totalMiceDown,
       miceNeeded
     };
     io.emit("status", statusEventData);
-    if (totalMiceDown === miceNeeded) io.emit("success");
+    if (totalMiceDown >= miceNeeded) io.emit("success");
+  });
+
+  socket.on("reset", () => {
+    totalMiceDown = 0;
+    statusEventData = {
+      totalMiceDown,
+      miceNeeded
+    };
+    io.emit("status", statusEventData);
   });
 });
