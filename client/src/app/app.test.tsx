@@ -1,8 +1,8 @@
-import React, { render, screen } from "@testing-library/react";
+import React from "@testing-library/react";
+import { shallow } from "enzyme";
 import App from ".";
 
-test("renders question marks before status event", () => {
-  render(<App />);
-  const text = screen.getByText("? OUT OF ?");
-  expect(text).toBeInTheDocument();
+it("renders a SyncButton", () => {
+  const shallowComponent = shallow(<App />);
+  expect(shallowComponent).toContainExactlyOneMatchingElement("SyncButton");
 });
