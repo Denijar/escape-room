@@ -4,6 +4,7 @@ import cors from "cors";
 import http from "http";
 import path from "path";
 import { Server as IOServer } from "socket.io";
+import type { StatusEventData } from "./common/event-data-types";
 
 // Import routes
 import api from "./server/routes";
@@ -49,26 +50,35 @@ server.listen(port, () => console.log(`BACK_END_SERVICE_PORT: ${port}`));
 
 const io = new IOServer(server);
 
-console.log(io.engine.clientsCount);
-
-let totalMouseDown: number = 0;
+let totalMiceDown: number = 0;
+const miceNeeded: number = 2;
 
 io.on("connection", (socket) => {
-  let numConnections = io.engine.clientsCount;
-  console.log(`connection ${socket.id}: ${numConnections} total connections`);
+  let statusEventData: StatusEventData = {
+    totalMiceDown,
+    miceNeeded
+  };
+  socket.emit("status", statusEventData);
 
   socket.on("mouse down", () => {
-    totalMouseDown += 1;
-    console.log(`connection ${socket.id}: mouse down. Total ${totalMouseDown}`);
+    totalMiceDown += 1;
+
+    statusEventData = {
+      totalMiceDown,
+      miceNeeded
+    };
+    socket.emit("status", statusEventData);
+    if (totalMiceDown === miceNeeded) socket.emit("success");
   });
 
   socket.on("mouse up", () => {
-    totalMouseDown += 1;
-    console.log(`connection ${socket.id}: mouse up. Total ${totalMouseDown}`);
-  });
+    totalMiceDown -= 1;
 
-  socket.on("disconnect", () => {
-    numConnections = io.engine.clientsCount;
-    console.log(`disconnect ${socket.id}: ${numConnections} total connections`);
+    statusEventData = {
+      totalMiceDown,
+      miceNeeded
+    };
+    socket.emit("status", statusEventData);
+    if (totalMiceDown === miceNeeded) socket.emit("success");
   });
 });
