@@ -67,8 +67,8 @@ io.on("connection", (socket) => {
       totalMiceDown,
       miceNeeded
     };
-    socket.emit("status", statusEventData);
-    if (totalMiceDown === miceNeeded) socket.emit("success");
+    io.emit("status", statusEventData);
+    if (totalMiceDown === miceNeeded) io.emit("success");
   });
 
   socket.on("mouse up", () => {
@@ -78,7 +78,7 @@ io.on("connection", (socket) => {
       totalMiceDown,
       miceNeeded
     };
-    socket.emit("status", statusEventData);
-    if (totalMiceDown === miceNeeded) socket.emit("success");
+    io.emit("status", statusEventData);
+    if (totalMiceDown === miceNeeded) io.emit("success");
   });
 });

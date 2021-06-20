@@ -37,7 +37,7 @@ function App() {
   return (
     <div className={styles.App}>
       <button type="button" onMouseDown={handleMouseDown} onMouseUp={handleMouseUp}>
-        Connect
+        Click
       </button>
       <div>{`${totalMiceDown} OUT OF ${miceNeeded}`}</div>
       {success && <div>ACCESS GRANTED</div>}
