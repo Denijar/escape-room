@@ -3,8 +3,9 @@ import express, { NextFunction, Request, Response } from "express";
 import cors from "cors";
 import http from "http";
 import path from "path";
-import { Server as IOServer } from "socket.io";
+import { Server as IOServer, Socket } from "socket.io";
 import type { StatusEventData } from "./common/event-data-types";
+import registerSyncHandler from "./server/handlers/sync.handler";
 
 // Import routes
 import api from "./server/routes";
@@ -50,44 +51,13 @@ server.listen(port, () => console.log(`BACK_END_SERVICE_PORT: ${port}`));
 
 const io = new IOServer(server);
 
-let totalMiceDown: number = 0;
-const miceNeeded: number = 2;
+const syncState: StatusEventData = {
+  totalMiceDown: 0,
+  miceNeeded: 2
+};
 
-io.on("connection", (socket) => {
-  let statusEventData: StatusEventData = {
-    totalMiceDown,
-    miceNeeded
-  };
-  socket.emit("status", statusEventData);
+const onConnection = (socket: Socket) => {
+  registerSyncHandler(io, socket, syncState);
+};
 
-  socket.on("mouse down", () => {
-    totalMiceDown += 1;
-
-    statusEventData = {
-      totalMiceDown,
-      miceNeeded
-    };
-    io.emit("status", statusEventData);
-    if (totalMiceDown >= miceNeeded) io.emit("success");
-  });
-
-  socket.on("mouse up", () => {
-    totalMiceDown = totalMiceDown ? totalMiceDown - 1 : 0;
-
-    statusEventData = {
-      totalMiceDown,
-      miceNeeded
-    };
-    io.emit("status", statusEventData);
-    if (totalMiceDown >= miceNeeded) io.emit("success");
-  });
-
-  socket.on("reset", () => {
-    totalMiceDown = 0;
-    statusEventData = {
-      totalMiceDown,
-      miceNeeded
-    };
-    io.emit("status", statusEventData);
-  });
-});
+io.on("connection", onConnection);

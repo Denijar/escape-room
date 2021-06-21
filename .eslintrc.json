@@ -23,6 +23,7 @@
   "rules": {
     "prettier/prettier": ["error", { "endOfLine": "auto" }, { "usePrettierrc": true }],
     "no-console": "warn",
-    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }]
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+    "no-param-reassign": ["error", { "props": false }]
   }
 }
