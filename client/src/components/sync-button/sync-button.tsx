@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDoorClosed, faDoorOpen } from "@fortawesome/free-solid-svg-icons";
 import socket from "../../socket";
 import type { StatusEventData } from "../../../../common/event-data-types";
 import styles from "./sync-button.module.scss";
 
 function SyncButton() {
+  const history = useHistory();
+
   const [totalMiceDown, setTotalMiceDown] = useState<number | string>("?");
   const [miceNeeded, setMiceNeeded] = useState<number | string>("?");
   const [success, setSuccess] = useState<boolean>(false);
@@ -39,17 +44,27 @@ function SyncButton() {
     setButtonPressed(false);
   };
 
+  const handleNextStage = () => {
+    history.push("/stage_two");
+  };
+
   return (
     <div
       role="button"
       tabIndex={0}
-      className={`${styles.button} ${buttonPressed && styles.pressed}`}
+      className={`${styles.button} ${buttonPressed && styles.pressed} ${success && styles.success}`}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
     >
+      <div className={styles.icon}>
+        {success ? (
+          <FontAwesomeIcon icon={faDoorOpen} size="6x" onClick={handleNextStage} />
+        ) : (
+          <FontAwesomeIcon icon={faDoorClosed} size="6x" />
+        )}
+      </div>
       <div>{`${totalMiceDown} OUT OF ${miceNeeded}`}</div>
-      {success && <div>ACCESS GRANTED</div>}
     </div>
   );
 }
