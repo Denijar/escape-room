@@ -40,7 +40,15 @@ function SyncButton() {
 
   return (
     <>
-      <div role="button" tabIndex={0} className={styles.button} onMouseDown={handleMouseDown} onMouseUp={handleMouseUp}>
+      <div
+        role="button"
+        tabIndex={0}
+        className={styles.button}
+        onTouchStart={handleMouseDown}
+        onTouchEnd={handleMouseUp}
+        onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUp}
+      >
         <div>{`${totalMiceDown} OUT OF ${miceNeeded}`}</div>
         {success && <div>ACCESS GRANTED</div>}
       </div>
