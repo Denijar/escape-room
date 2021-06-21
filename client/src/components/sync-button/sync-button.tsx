@@ -7,6 +7,7 @@ function SyncButton() {
   const [totalMiceDown, setTotalMiceDown] = useState<number | string>("?");
   const [miceNeeded, setMiceNeeded] = useState<number | string>("?");
   const [success, setSuccess] = useState<boolean>(false);
+  const [buttonPressed, setButtonPressed] = useState<boolean>(false);
 
   useEffect(() => {
     socket.on("status", (eventData: StatusEventData) => {
@@ -26,36 +27,30 @@ function SyncButton() {
     };
   }, []);
 
-  const handleMouseDown = () => {
-    socket.emit("mouse down");
+  const handleMouseDown = (event: React.MouseEvent) => {
+    if (event.button === 0) {
+      socket.emit("mouse down");
+      setButtonPressed(true);
+    }
   };
 
   const handleMouseUp = () => {
     socket.emit("mouse up");
-  };
-
-  const handleReset = () => {
-    socket.emit("reset");
+    setButtonPressed(false);
   };
 
   return (
-    <>
-      <div
-        role="button"
-        tabIndex={0}
-        className={styles.button}
-        onTouchStart={handleMouseDown}
-        onTouchEnd={handleMouseUp}
-        onMouseDown={handleMouseDown}
-        onMouseUp={handleMouseUp}
-      >
-        <div>{`${totalMiceDown} OUT OF ${miceNeeded}`}</div>
-        {success && <div>ACCESS GRANTED</div>}
-      </div>
-      <button type="button" onClick={handleReset}>
-        Reset
-      </button>
-    </>
+    <div
+      role="button"
+      tabIndex={0}
+      className={`${styles.button} ${buttonPressed && styles.pressed}`}
+      onMouseDown={handleMouseDown}
+      onMouseUp={handleMouseUp}
+      onMouseLeave={handleMouseUp}
+    >
+      <div>{`${totalMiceDown} OUT OF ${miceNeeded}`}</div>
+      {success && <div>ACCESS GRANTED</div>}
+    </div>
   );
 }
 

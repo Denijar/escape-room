@@ -6,8 +6,9 @@
   justify-content: center;
   background-color: #1d2951;
   color: white;
+  user-select: none;
 }
 
-.button:active {
+.pressed {
   background-color: #016064;
 }
