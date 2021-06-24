@@ -1,6 +1,7 @@
 import React from "react";
 import { MemoryRouter, Switch, Route, Redirect } from "react-router-dom";
-import SyncButton from "../components/sync-button/sync-button";
+import StageOne from "../pages/stage-one";
+import StageTwo from "../pages/stage-two";
 import styles from "./app.module.scss";
 
 function App() {
@@ -9,10 +10,10 @@ function App() {
       <MemoryRouter>
         <Switch>
           <Route path="/stage_one">
-            <SyncButton />
+            <StageOne />
           </Route>
           <Route path="/stage_two">
-            <p>Stage two</p>
+            <StageTwo />
           </Route>
           <Route path="/*">
             <Redirect to="/stage_one" />
