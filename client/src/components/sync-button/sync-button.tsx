@@ -28,7 +28,6 @@ function SyncButton() {
     return () => {
       socket.off("status");
       socket.off("success");
-      socket.disconnect();
     };
   }, []);
 

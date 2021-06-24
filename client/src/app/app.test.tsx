@@ -2,7 +2,12 @@ import React from "@testing-library/react";
 import { shallow } from "enzyme";
 import App from ".";
 
-it("renders a SyncButton", () => {
+it("renders the StageOne page", () => {
   const shallowComponent = shallow(<App />);
-  expect(shallowComponent).toContainExactlyOneMatchingElement("SyncButton");
+  expect(shallowComponent).toContainExactlyOneMatchingElement("StageOne");
+});
+
+it("renders the StageTwo page", () => {
+  const shallowComponent = shallow(<App />);
+  expect(shallowComponent).toContainExactlyOneMatchingElement("StageTwo");
 });

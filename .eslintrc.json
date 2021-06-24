@@ -17,13 +17,14 @@
     "ecmaFeatures": {
       "jsx": true
     },
-    "project": ["./tsconfig.json", "./client/tsconfig.json"]
+    "project": ["tsconfig.json", "./client/tsconfig.json"]
   },
   "plugins": ["@typescript-eslint"],
   "rules": {
     "prettier/prettier": ["error", { "endOfLine": "auto" }, { "usePrettierrc": true }],
     "no-console": "warn",
     "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
-    "no-param-reassign": ["error", { "props": false }]
+    "no-param-reassign": ["error", { "props": false }],
+    "react/require-default-props": "off"
   }
 }
