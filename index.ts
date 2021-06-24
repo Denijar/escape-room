@@ -6,7 +6,6 @@ import path from "path";
 import { Server as IOServer, Socket } from "socket.io";
 import type { StatusEventData } from "./common/event-data-types";
 import registerSyncHandler from "./server/handlers/sync.handler";
-import registerMazeHandler from "./server/handlers/maze.handler";
 
 // Import routes
 import api from "./server/routes";
@@ -59,7 +58,6 @@ const syncState: StatusEventData = {
 
 const onConnection = (socket: Socket) => {
   registerSyncHandler(io, socket, syncState);
-  registerMazeHandler(io, socket);
 };
 
 io.on("connection", onConnection);
