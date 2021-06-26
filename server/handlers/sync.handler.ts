@@ -1,7 +1,7 @@
 import { Server, Socket } from "socket.io";
-import type { StatusEventData } from "../../common/event-data-types";
+import type { Status } from "../../common/event-data-types";
 
-export default (io: Server, socket: Socket, syncState: StatusEventData): void => {
+export default (io: Server, socket: Socket, syncState: Status): void => {
   const mouseDown = (): void => {
     syncState.totalMiceDown += 1;
     io.emit("sync:status", syncState);

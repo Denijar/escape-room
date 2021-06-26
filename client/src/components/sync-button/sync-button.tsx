@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDoorClosed, faDoorOpen } from "@fortawesome/free-solid-svg-icons";
 import socket from "../../socket";
-import type { StatusEventData } from "../../../../common/event-data-types";
+import type { Status } from "../../../../common/event-data-types";
 import styles from "./sync-button.module.scss";
 
 function SyncButton() {
@@ -15,7 +15,7 @@ function SyncButton() {
   const [buttonPressed, setButtonPressed] = useState<boolean>(false);
 
   useEffect(() => {
-    socket.on("sync:status", (eventData: StatusEventData) => {
+    socket.on("sync:status", (eventData: Status) => {
       const { totalMiceDown: totalMiceDownData, miceNeeded: miceNeededData } = eventData;
       setTotalMiceDown(totalMiceDownData);
       setMiceNeeded(miceNeededData);
@@ -54,7 +54,7 @@ function SyncButton() {
       className={`${styles.button} ${buttonPressed && styles.pressed} ${success && styles.success}`}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
-      // onMouseLeave={handleMouseUp}
+      onMouseLeave={handleMouseUp}
     >
       <div className={styles.icon}>
         {success ? (

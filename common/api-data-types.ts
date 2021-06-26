@@ -1,4 +1,4 @@
-export type MazeLayoutData = {
+export type MazeLayout = {
   body: Cell[][];
 };
 

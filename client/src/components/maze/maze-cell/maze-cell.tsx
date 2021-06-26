@@ -7,11 +7,11 @@ type MazeCellProps = {
   U: boolean;
   D: boolean;
   current: boolean;
-  start?: boolean;
-  finish?: boolean;
+  start: boolean;
+  finish: boolean;
 };
 
-function MazeCell({ L, R, U, D, current, start = false, finish = false }: MazeCellProps) {
+function MazeCell({ L, R, U, D, current, start, finish }: MazeCellProps) {
   return (
     <div
       className={`${styles.square} ${L && styles.left} ${R && styles.right} ${U && styles.up} ${D && styles.down} ${

@@ -4,7 +4,7 @@ import cors from "cors";
 import http from "http";
 import path from "path";
 import { Server as IOServer, Socket } from "socket.io";
-import type { StatusEventData } from "./common/event-data-types";
+import type { Status } from "./common/event-data-types";
 import registerSyncHandler from "./server/handlers/sync.handler";
 import registerMazeHandler from "./server/handlers/maze.handler";
 
@@ -52,7 +52,7 @@ server.listen(port, () => console.log(`BACK_END_SERVICE_PORT: ${port}`));
 
 const io = new IOServer(server);
 
-const syncState: StatusEventData = {
+const syncState: Status = {
   totalMiceDown: 0,
   miceNeeded: 2
 };
