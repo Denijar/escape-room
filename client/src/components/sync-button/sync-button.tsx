@@ -15,31 +15,31 @@ function SyncButton() {
   const [buttonPressed, setButtonPressed] = useState<boolean>(false);
 
   useEffect(() => {
-    socket.on("status", (eventData: StatusEventData) => {
+    socket.on("sync:status", (eventData: StatusEventData) => {
       const { totalMiceDown: totalMiceDownData, miceNeeded: miceNeededData } = eventData;
       setTotalMiceDown(totalMiceDownData);
       setMiceNeeded(miceNeededData);
     });
 
-    socket.on("success", () => {
+    socket.on("sync:success", () => {
       setSuccess(true);
     });
 
     return () => {
-      socket.off("status");
-      socket.off("success");
+      socket.off("sync:status");
+      socket.off("sync:success");
     };
   }, []);
 
   const handleMouseDown = (event: React.MouseEvent) => {
     if (event.button === 0) {
-      socket.emit("mouse down");
+      socket.emit("sync:mouse_down");
       setButtonPressed(true);
     }
   };
 
   const handleMouseUp = () => {
-    socket.emit("mouse up");
+    socket.emit("sync:mouse_up");
     setButtonPressed(false);
   };
 
@@ -54,7 +54,7 @@ function SyncButton() {
       className={`${styles.button} ${buttonPressed && styles.pressed} ${success && styles.success}`}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseUp}
+      // onMouseLeave={handleMouseUp}
     >
       <div className={styles.icon}>
         {success ? (

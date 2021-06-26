@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MazeCell from "./maze-cell";
 import type { MazeLayoutData } from "../../../../common/api-types";
 import styles from "./maze.module.scss";
 import useGet from "../../hooks/useGet";
+import socket from "../../socket";
 
 type Coordinate = {
   x: number;
@@ -14,6 +15,16 @@ type Direction = "U" | "D" | "L" | "R";
 function Maze() {
   const { response: mazeLayout, loading: mazeLayoutLoading } = useGet<MazeLayoutData>(`/api/maze`);
   const [currentCell, setCurrentCell] = useState<Coordinate>({ x: 0, y: 0 });
+
+  useEffect(() => {
+    socket.on("maze:movement", (eventData) => {
+      setCurrentCell(eventData);
+    });
+
+    return () => {
+      socket.off("maze:movement");
+    };
+  }, []);
 
   const handleMovement = (direction: Direction) => {
     if (mazeLayout) {
@@ -36,6 +47,7 @@ function Maze() {
             break;
         }
         setCurrentCell(newCurrentCell);
+        socket.emit("maze:movement", newCurrentCell);
       }
     }
   };
