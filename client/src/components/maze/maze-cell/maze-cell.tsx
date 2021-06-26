@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./maze-cell.module.scss";
 
-interface MazeCellProps {
+type MazeCellProps = {
   L: boolean;
   R: boolean;
   U: boolean;
@@ -9,7 +9,7 @@ interface MazeCellProps {
   current: boolean;
   start?: boolean;
   finish?: boolean;
-}
+};
 
 function MazeCell({ L, R, U, D, current, start = false, finish = false }: MazeCellProps) {
   return (

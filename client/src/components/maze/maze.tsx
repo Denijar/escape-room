@@ -4,10 +4,10 @@ import type { MazeLayoutData } from "../../../../common/api-types";
 import styles from "./maze.module.scss";
 import useGet from "../../hooks/useGet";
 
-interface Coordinate {
+type Coordinate = {
   x: number;
   y: number;
-}
+};
 
 type Direction = "U" | "D" | "L" | "R";
 
