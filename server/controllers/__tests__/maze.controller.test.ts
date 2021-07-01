@@ -1,6 +1,6 @@
 import getMaze from "../maze.controller";
 
-jest.mock("../../data/maze.json", () => [1, 2, 3]);
+jest.mock("../../data/maze.data.json", () => [1, 2, 3]);
 
 describe("Maze controller", () => {
   describe("getMaze", () => {
