@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from "react";
 import MazeCell from "./maze-cell";
-import type { MazeLayout } from "../../../../common/api-data-types";
+import type { Coordinate as APICoordinate, MazeLayout } from "../../../../common/api-data-types";
 import type { Coordinate } from "../../../../common/event-data-types";
 import styles from "./maze.module.scss";
 import useGet from "../../hooks/useGet";
 import socket from "../../socket";
 
+type MazeProps = {
+  id: number;
+};
+
 type Direction = "U" | "D" | "L" | "R";
 
-function Maze() {
+function Maze({ id }: MazeProps) {
   const { response: mazeLayout, loading: mazeLayoutLoading } = useGet<MazeLayout>(`/api/maze`);
-  const [currentCell, setCurrentCell] = useState<Coordinate>({ x: 0, y: 0 });
+  const { response: coordinate } = useGet<APICoordinate>(`/api/maze/coordinate/${id}`);
+
+  const [currentCell, setCurrentCell] = useState<Coordinate | undefined>(undefined);
 
   useEffect(() => {
     socket.on("maze:movement", (eventData: Coordinate) => {
@@ -22,8 +28,14 @@ function Maze() {
     };
   }, []);
 
+  useEffect(() => {
+    if (coordinate) {
+      setCurrentCell({ x: coordinate.body.x, y: coordinate.body.y });
+    }
+  }, [coordinate]);
+
   const handleMovement = (direction: Direction) => {
-    if (mazeLayout) {
+    if (mazeLayout && currentCell) {
       if (!mazeLayout?.body[currentCell.y][currentCell.x][direction]) {
         const newCurrentCell = { ...currentCell };
         switch (direction) {
@@ -51,6 +63,7 @@ function Maze() {
   return (
     <>
       {!mazeLayoutLoading &&
+        currentCell &&
         mazeLayout?.body.map((row, i) => (
           <div key={i} className={styles.row}>
             {row.map((cell, j) => (

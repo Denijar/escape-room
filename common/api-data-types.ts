@@ -10,3 +10,10 @@ type Cell = {
   start?: boolean;
   finish?: boolean;
 };
+
+export type Coordinate = {
+  body: {
+    x: number;
+    y: number;
+  };
+};

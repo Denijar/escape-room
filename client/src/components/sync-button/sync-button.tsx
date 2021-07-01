@@ -54,7 +54,7 @@ function SyncButton() {
       className={`${styles.button} ${buttonPressed && styles.pressed} ${success && styles.success}`}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseUp}
+      // onMouseLeave={handleMouseUp}
     >
       <div className={styles.icon}>
         {success ? (

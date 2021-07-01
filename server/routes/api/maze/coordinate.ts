@@ -3,7 +3,7 @@ import { getCoordinate, putCoordinate } from "../../../controllers/coordinate.co
 
 const router = express.Router();
 
-router.get("/", getCoordinate);
-router.get("/", putCoordinate);
+router.get("/:id", getCoordinate);
+router.put("/:id", putCoordinate);
 
 export default router;

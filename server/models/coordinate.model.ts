@@ -1,18 +1,17 @@
-import { model, Schema, Model, Document } from "mongoose";
+import { model, Schema, Document } from "mongoose";
 
-interface ICoordinate extends Document {
+export interface CoordinateDocument extends Document {
   x: number;
   y: number;
 }
 
 const coordinateSchema: Schema = new Schema(
   {
+    _id: { type: Number, required: true },
     x: { type: Number, required: true },
     y: { type: Number, required: true }
   },
   { collection: "coordinates" }
 );
 
-const Coordinate: Model<ICoordinate> = model("Coordinate", coordinateSchema);
-
-export default Coordinate;
+export default model<CoordinateDocument>("Coordinate", coordinateSchema);

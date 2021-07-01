@@ -2,7 +2,7 @@ import React from "react";
 import Maze from "../../components/maze";
 
 function StageTwo() {
-  return <Maze />;
+  return <Maze id={1} />;
 }
 
 export default StageTwo;
