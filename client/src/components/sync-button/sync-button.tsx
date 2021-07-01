@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDoorClosed, faDoorOpen } from "@fortawesome/free-solid-svg-icons";
 import socket from "../../socket";
-import type { StatusEventData } from "../../../../common/event-data-types";
+import type { Status } from "../../../../common/event-data-types";
 import styles from "./sync-button.module.scss";
 
 function SyncButton() {
@@ -15,31 +15,31 @@ function SyncButton() {
   const [buttonPressed, setButtonPressed] = useState<boolean>(false);
 
   useEffect(() => {
-    socket.on("status", (eventData: StatusEventData) => {
+    socket.on("sync:status", (eventData: Status) => {
       const { totalMiceDown: totalMiceDownData, miceNeeded: miceNeededData } = eventData;
       setTotalMiceDown(totalMiceDownData);
       setMiceNeeded(miceNeededData);
     });
 
-    socket.on("success", () => {
+    socket.on("sync:success", () => {
       setSuccess(true);
     });
 
     return () => {
-      socket.off("status");
-      socket.off("success");
+      socket.off("sync:status");
+      socket.off("sync:success");
     };
   }, []);
 
   const handleMouseDown = (event: React.MouseEvent) => {
     if (event.button === 0) {
-      socket.emit("mouse down");
+      socket.emit("sync:mouse_down");
       setButtonPressed(true);
     }
   };
 
   const handleMouseUp = () => {
-    socket.emit("mouse up");
+    socket.emit("sync:mouse_up");
     setButtonPressed(false);
   };
 

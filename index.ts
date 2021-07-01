@@ -4,11 +4,25 @@ import cors from "cors";
 import http from "http";
 import path from "path";
 import { Server as IOServer, Socket } from "socket.io";
-import type { StatusEventData } from "./common/event-data-types";
+import mongoose from "mongoose";
+import type { Status } from "./common/event-data-types";
 import registerSyncHandler from "./server/handlers/sync.handler";
+import registerMazeHandler from "./server/handlers/maze.handler";
+
+// connect to database
 
 // Import routes
 import api from "./server/routes";
+
+require("dotenv").config();
+
+const pw = process.env.MONGO_DB_PW;
+const DEFAULT_CONNECTION_STRING = `mongodb+srv://dbUser:${pw}@escaperoom.rllmg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+
+mongoose.connect(DEFAULT_CONNECTION_STRING, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
 
 // Setup express
 const app = express();
@@ -51,13 +65,14 @@ server.listen(port, () => console.log(`BACK_END_SERVICE_PORT: ${port}`));
 
 const io = new IOServer(server);
 
-const syncState: StatusEventData = {
+const syncState: Status = {
   totalMiceDown: 0,
   miceNeeded: 2
 };
 
 const onConnection = (socket: Socket) => {
   registerSyncHandler(io, socket, syncState);
+  registerMazeHandler(io, socket);
 };
 
 io.on("connection", onConnection);

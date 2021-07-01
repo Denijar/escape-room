@@ -1,21 +1,22 @@
 import React from "react";
 import styles from "./maze-cell.module.scss";
 
-interface MazeCellProps {
+type MazeCellProps = {
   L: boolean;
   R: boolean;
   U: boolean;
   D: boolean;
-  start?: boolean;
-  finish?: boolean;
-}
+  current: boolean;
+  start: boolean;
+  finish: boolean;
+};
 
-function MazeCell({ L, R, U, D, start = false, finish = false }: MazeCellProps) {
+function MazeCell({ L, R, U, D, current, start, finish }: MazeCellProps) {
   return (
     <div
       className={`${styles.square} ${L && styles.left} ${R && styles.right} ${U && styles.up} ${D && styles.down} ${
         start && styles.start
-      } ${finish && styles.finish}`}
+      } ${finish && styles.finish} ${current && styles.current}`}
     />
   );
 }
