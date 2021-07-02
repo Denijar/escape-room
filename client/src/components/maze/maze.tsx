@@ -8,11 +8,16 @@ import socket from "../../socket";
 
 type MazeProps = {
   id: number;
+  noWalls?: boolean;
+  showUp?: boolean;
+  showDown?: boolean;
+  showLeft?: boolean;
+  showRight?: boolean;
 };
 
 type Direction = "U" | "D" | "L" | "R";
 
-function Maze({ id }: MazeProps) {
+function Maze({ id, noWalls = false, showUp = true, showDown = true, showLeft = true, showRight = true }: MazeProps) {
   const { response: mazeLayout, loading: mazeLayoutLoading } = useGet<MazeLayout>(`/api/maze`);
   const { response: coordinate } = useGet<APICoordinate>(`/api/maze/coordinate/${id}`);
 
@@ -73,6 +78,7 @@ function Maze({ id }: MazeProps) {
                 R={cell.R}
                 U={cell.U}
                 D={cell.D}
+                noWalls={noWalls}
                 current={currentCell.x === j && currentCell.y === i}
                 start={cell.start || false}
                 finish={cell.finish || false}
@@ -80,18 +86,26 @@ function Maze({ id }: MazeProps) {
             ))}
           </div>
         ))}
-      <button type="button" onClick={() => handleMovement("U")}>
-        Up
-      </button>
-      <button type="button" onClick={() => handleMovement("D")}>
-        Down
-      </button>
-      <button type="button" onClick={() => handleMovement("L")}>
-        Left
-      </button>
-      <button type="button" onClick={() => handleMovement("R")}>
-        Right
-      </button>
+      {showUp && (
+        <button type="button" onClick={() => handleMovement("U")}>
+          Up
+        </button>
+      )}
+      {showDown && (
+        <button type="button" onClick={() => handleMovement("D")}>
+          Down
+        </button>
+      )}
+      {showLeft && (
+        <button type="button" onClick={() => handleMovement("L")}>
+          Left
+        </button>
+      )}
+      {showRight && (
+        <button type="button" onClick={() => handleMovement("R")}>
+          Right
+        </button>
+      )}
     </>
   );
 }
