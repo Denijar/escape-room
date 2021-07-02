@@ -1,12 +1,12 @@
 import type { CoordinateDocument } from "../models/coordinate.model";
 import CoordinateModel from "../models/coordinate.model";
-import { Coordinate } from "../../common/api-data-types";
+import { Coordinate } from "../../common/domain-types";
 
 const createCoordinate = async (id: number): Promise<CoordinateDocument> => {
-  const coordinate: Coordinate = { body: { x: 0, y: 0 } };
+  const coordinate: Coordinate = { x: 0, y: 0 };
   const dbCoordinate = new CoordinateModel({
     _id: id,
-    ...coordinate.body
+    ...coordinate
   });
   await dbCoordinate.save();
   return dbCoordinate;
@@ -22,8 +22,8 @@ export const fetchCoordinate = async (id: number): Promise<CoordinateDocument> =
 
 export const updateCoordinate = async (id: number, newCoordinate: Coordinate): Promise<CoordinateDocument> => {
   const currentDbCoordinate = await fetchCoordinate(id);
-  currentDbCoordinate.x = newCoordinate.body.x;
-  currentDbCoordinate.y = newCoordinate.body.y;
+  currentDbCoordinate.x = newCoordinate.x;
+  currentDbCoordinate.y = newCoordinate.y;
   await currentDbCoordinate.save();
   return currentDbCoordinate;
 };

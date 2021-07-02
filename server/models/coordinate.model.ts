@@ -1,9 +1,7 @@
 import { model, Schema, Document } from "mongoose";
+import type { Coordinate } from "../../common/domain-types";
 
-export interface CoordinateDocument extends Document {
-  x: number;
-  y: number;
-}
+export interface CoordinateDocument extends Coordinate, Document {}
 
 const coordinateSchema: Schema = new Schema(
   {

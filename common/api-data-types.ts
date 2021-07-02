@@ -1,19 +1,9 @@
-export type MazeLayout = {
+import type { Cell, Coordinate } from "./domain-types";
+
+export interface MazeLayout {
   body: Cell[][];
-};
+}
 
-type Cell = {
-  L: boolean;
-  R: boolean;
-  U: boolean;
-  D: boolean;
-  start?: boolean;
-  finish?: boolean;
-};
-
-export type Coordinate = {
-  body: {
-    x: number;
-    y: number;
-  };
-};
+export interface InitialCoordinate {
+  body: Coordinate;
+}

@@ -1,31 +1,32 @@
 import React, { useState, useEffect } from "react";
 import MazeCell from "./maze-cell";
-import type { Coordinate as APICoordinate, MazeLayout } from "../../../../common/api-data-types";
-import type { Coordinate } from "../../../../common/event-data-types";
+import type { InitialCoordinate, MazeLayout } from "../../../../common/api-data-types";
+import type { MazeMovement } from "../../../../common/event-data-types";
+import type { Coordinate } from "../../../../common/domain-types";
 import styles from "./maze.module.scss";
 import useGet from "../../hooks/useGet";
 import socket from "../../socket";
 
-type MazeProps = {
+interface MazeProps {
   id: number;
   noWalls?: boolean;
   showUp?: boolean;
   showDown?: boolean;
   showLeft?: boolean;
   showRight?: boolean;
-};
+}
 
 type Direction = "U" | "D" | "L" | "R";
 
 function Maze({ id, noWalls = false, showUp = true, showDown = true, showLeft = true, showRight = true }: MazeProps) {
   const { response: mazeLayout, loading: mazeLayoutLoading } = useGet<MazeLayout>(`/api/maze`);
-  const { response: coordinate } = useGet<APICoordinate>(`/api/maze/coordinate/${id}`);
+  const { response: initialCoordinate } = useGet<InitialCoordinate>(`/api/maze/coordinate/${id}`);
 
   const [currentCell, setCurrentCell] = useState<Coordinate | undefined>(undefined);
 
   useEffect(() => {
-    socket.on("maze:movement", (eventData: Coordinate) => {
-      setCurrentCell(eventData);
+    socket.on("maze:movement", (eventData: MazeMovement) => {
+      setCurrentCell(eventData.coordinate);
     });
 
     return () => {
@@ -34,10 +35,10 @@ function Maze({ id, noWalls = false, showUp = true, showDown = true, showLeft = 
   }, []);
 
   useEffect(() => {
-    if (coordinate) {
-      setCurrentCell({ x: coordinate.body.x, y: coordinate.body.y });
+    if (initialCoordinate) {
+      setCurrentCell({ x: initialCoordinate.body.x, y: initialCoordinate.body.y });
     }
-  }, [coordinate]);
+  }, [initialCoordinate]);
 
   const handleMovement = (direction: Direction) => {
     if (mazeLayout && currentCell) {
@@ -60,7 +61,8 @@ function Maze({ id, noWalls = false, showUp = true, showDown = true, showLeft = 
             break;
         }
         setCurrentCell(newCurrentCell);
-        socket.emit("maze:movement", newCurrentCell);
+        const mazeMovement: MazeMovement = { mazeId: id, coordinate: newCurrentCell };
+        socket.emit("maze:movement", mazeMovement);
       }
     }
   };

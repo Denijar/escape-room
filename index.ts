@@ -5,7 +5,7 @@ import http from "http";
 import path from "path";
 import { Server as IOServer, Socket } from "socket.io";
 import mongoose from "mongoose";
-import type { Status } from "./common/event-data-types";
+import type { SyncStatus } from "./common/event-data-types";
 import registerSyncHandler from "./server/handlers/sync.handler";
 import registerMazeHandler from "./server/handlers/maze.handler";
 
@@ -65,13 +65,13 @@ server.listen(port, () => console.log(`BACK_END_SERVICE_PORT: ${port}`));
 
 const io = new IOServer(server);
 
-const syncState: Status = {
+const syncStatus: SyncStatus = {
   totalMiceDown: 0,
   miceNeeded: 2
 };
 
 const onConnection = (socket: Socket) => {
-  registerSyncHandler(io, socket, syncState);
+  registerSyncHandler(io, socket, syncStatus);
   registerMazeHandler(io, socket);
 };
 
