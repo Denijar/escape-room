@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { faChevronUp, faChevronDown, faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import MazeCell from "./maze-cell";
+import DirectionButton from "./direction-button";
 import type { InitialCoordinate, MazeLayout } from "../../../../common/api-data-types";
 import type { MazeMovement } from "../../../../common/event-data-types";
 import type { Coordinate } from "../../../../common/domain-types";
@@ -16,7 +18,7 @@ interface MazeProps {
   showRight?: boolean;
 }
 
-type Direction = "U" | "D" | "L" | "R";
+export type Direction = "U" | "D" | "L" | "R";
 
 function Maze({ id, noWalls = false, showUp = true, showDown = true, showLeft = true, showRight = true }: MazeProps) {
   const { response: mazeLayout, loading: mazeLayoutLoading } = useGet<MazeLayout>(`/api/maze/${id}`);
@@ -68,47 +70,37 @@ function Maze({ id, noWalls = false, showUp = true, showDown = true, showLeft = 
   };
 
   return (
-    <>
-      {!mazeLayoutLoading &&
-        currentCell &&
-        mazeLayout?.body.map((row, i) => (
-          <div key={i} className={styles.row}>
-            {row.map((cell, j) => (
-              <MazeCell
-                key={`${i},${j}`}
-                L={cell.L}
-                R={cell.R}
-                U={cell.U}
-                D={cell.D}
-                noWalls={noWalls}
-                current={currentCell.x === j && currentCell.y === i}
-                start={cell.start || false}
-                finish={cell.finish || false}
-              />
+    <div className={styles.upDown}>
+      {showUp && <DirectionButton icon={faChevronUp} onClick={() => handleMovement("U")} />}
+      <div className={styles.leftRight}>
+        {showLeft && <DirectionButton icon={faChevronLeft} onClick={() => handleMovement("L")} />}
+
+        <div className={styles.maze}>
+          {!mazeLayoutLoading &&
+            currentCell &&
+            mazeLayout?.body.map((row, i) => (
+              <div key={i} className={styles.row}>
+                {row.map((cell, j) => (
+                  <MazeCell
+                    key={`${i},${j}`}
+                    L={cell.L}
+                    R={cell.R}
+                    U={cell.U}
+                    D={cell.D}
+                    noWalls={noWalls}
+                    current={currentCell.x === j && currentCell.y === i}
+                    start={cell.start || false}
+                    finish={cell.finish || false}
+                  />
+                ))}
+              </div>
             ))}
-          </div>
-        ))}
-      {showUp && (
-        <button type="button" onClick={() => handleMovement("U")}>
-          Up
-        </button>
-      )}
-      {showDown && (
-        <button type="button" onClick={() => handleMovement("D")}>
-          Down
-        </button>
-      )}
-      {showLeft && (
-        <button type="button" onClick={() => handleMovement("L")}>
-          Left
-        </button>
-      )}
-      {showRight && (
-        <button type="button" onClick={() => handleMovement("R")}>
-          Right
-        </button>
-      )}
-    </>
+        </div>
+
+        {showRight && <DirectionButton icon={faChevronRight} onClick={() => handleMovement("R")} />}
+      </div>
+      {showDown && <DirectionButton icon={faChevronDown} onClick={() => handleMovement("D")} />}
+    </div>
   );
 }
 
