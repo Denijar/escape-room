@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { faChevronUp, faChevronDown, faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import MazeCell from "./maze-cell";
 import DirectionButton from "./direction-button";
 import type { InitialCoordinate, MazeLayout } from "../../../../common/api-data-types";
-import type { MazeMovement } from "../../../../common/event-data-types";
+import type { MazeMovement, MazeSuccess } from "../../../../common/event-data-types";
 import type { Coordinate } from "../../../../common/domain-types";
 import styles from "./maze.module.scss";
 import useGet from "../../hooks/useGet";
 import socket from "../../socket";
 
 interface MazeProps {
-  id: number;
+  id: string;
+  nextStageURL: string;
   noWalls?: boolean;
   showUp?: boolean;
   showDown?: boolean;
@@ -20,7 +22,9 @@ interface MazeProps {
 
 export type Direction = "U" | "D" | "L" | "R";
 
-function Maze({ id, noWalls = false, showUp = true, showDown = true, showLeft = true, showRight = true }: MazeProps) {
+function Maze({ id, nextStageURL, noWalls = false, showUp = true, showDown = true, showLeft = true, showRight = true }: MazeProps) {
+  const history = useHistory();
+
   const { response: mazeLayout, loading: mazeLayoutLoading } = useGet<MazeLayout>(`/api/maze/${id}`);
   const { response: initialCoordinate } = useGet<InitialCoordinate>(`/api/maze/${id}/coordinate`);
 
@@ -31,8 +35,15 @@ function Maze({ id, noWalls = false, showUp = true, showDown = true, showLeft = 
       setCurrentCell(eventData.coordinate);
     });
 
+    socket.on("maze:success", (eventData: MazeSuccess) => {
+      if (eventData.mazeId === id) {
+        history.push(nextStageURL);
+      }
+    });
+
     return () => {
       socket.off("maze:movement");
+      socket.off("maze:success");
     };
   }, []);
 
@@ -44,7 +55,7 @@ function Maze({ id, noWalls = false, showUp = true, showDown = true, showLeft = 
 
   const handleMovement = (direction: Direction) => {
     if (mazeLayout && currentCell) {
-      if (!mazeLayout?.body[currentCell.y][currentCell.x][direction]) {
+      if (!mazeLayout.body[currentCell.y][currentCell.x][direction]) {
         const newCurrentCell = { ...currentCell };
         switch (direction) {
           case "U":

@@ -44,7 +44,7 @@ function SyncButton() {
   };
 
   const handleNextStage = () => {
-    history.push("/stage_two");
+    history.push("/stage_2");
   };
 
   return (

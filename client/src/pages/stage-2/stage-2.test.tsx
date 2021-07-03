@@ -1,8 +1,8 @@
 import React from "@testing-library/react";
 import { shallow } from "enzyme";
-import StageTwo from ".";
+import Stage2 from ".";
 
 it("renders a Maze component", () => {
-  const shallowComponent = shallow(<StageTwo />);
+  const shallowComponent = shallow(<Stage2 />);
   expect(shallowComponent).toContainExactlyOneMatchingElement("Maze");
 });

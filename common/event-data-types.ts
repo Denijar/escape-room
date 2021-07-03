@@ -6,6 +6,10 @@ export interface SyncStatus {
 }
 
 export interface MazeMovement {
-  mazeId: number;
+  mazeId: string;
   coordinate: Coordinate;
+}
+
+export interface MazeSuccess {
+  mazeId: string;
 }
