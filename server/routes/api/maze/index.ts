@@ -4,8 +4,8 @@ import getMaze from "../../../controllers/maze.controller";
 
 const router = express.Router();
 
-router.get("/", getMaze);
+router.get("/:id", getMaze);
 
-router.use("/coordinate", coordinate);
+router.use("/", coordinate);
 
 export default router;

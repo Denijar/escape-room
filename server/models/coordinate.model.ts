@@ -5,7 +5,7 @@ export interface CoordinateDocument extends Coordinate, Document {}
 
 const coordinateSchema: Schema = new Schema(
   {
-    _id: { type: Number, required: true },
+    _id: { type: String, required: true },
     x: { type: Number, required: true },
     y: { type: Number, required: true }
   },

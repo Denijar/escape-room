@@ -2,7 +2,7 @@ import type { CoordinateDocument } from "../models/coordinate.model";
 import CoordinateModel from "../models/coordinate.model";
 import { Coordinate } from "../../common/domain-types";
 
-const createCoordinate = async (id: number): Promise<CoordinateDocument> => {
+const createCoordinate = async (id: string): Promise<CoordinateDocument> => {
   const coordinate: Coordinate = { x: 0, y: 0 };
   const dbCoordinate = new CoordinateModel({
     _id: id,
@@ -12,7 +12,7 @@ const createCoordinate = async (id: number): Promise<CoordinateDocument> => {
   return dbCoordinate;
 };
 
-export const fetchCoordinate = async (id: number): Promise<CoordinateDocument> => {
+export const fetchCoordinate = async (id: string): Promise<CoordinateDocument> => {
   const dbCoordinate = await CoordinateModel.findById(id);
   if (dbCoordinate) {
     return dbCoordinate;
@@ -20,7 +20,7 @@ export const fetchCoordinate = async (id: number): Promise<CoordinateDocument> =
   return createCoordinate(id);
 };
 
-export const updateCoordinate = async (id: number, newCoordinate: Coordinate): Promise<CoordinateDocument> => {
+export const updateCoordinate = async (id: string, newCoordinate: Coordinate): Promise<CoordinateDocument> => {
   const currentDbCoordinate = await fetchCoordinate(id);
   currentDbCoordinate.x = newCoordinate.x;
   currentDbCoordinate.y = newCoordinate.y;
