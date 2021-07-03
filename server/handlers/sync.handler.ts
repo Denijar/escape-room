@@ -1,27 +1,27 @@
 import { Server, Socket } from "socket.io";
-import type { Status } from "../../common/event-data-types";
+import type { SyncStatus } from "../../common/event-data-types";
 
-export default (io: Server, socket: Socket, syncState: Status): void => {
+export default (io: Server, socket: Socket, syncStatus: SyncStatus): void => {
   const mouseDown = (): void => {
-    syncState.totalMiceDown += 1;
-    io.emit("sync:status", syncState);
+    syncStatus.totalMiceDown += 1;
+    io.emit("sync:status", syncStatus);
 
-    if (syncState.totalMiceDown >= syncState.miceNeeded) {
+    if (syncStatus.totalMiceDown >= syncStatus.miceNeeded) {
       io.emit("sync:success");
     }
   };
 
   const mouseUp = (): void => {
-    syncState.totalMiceDown = syncState.totalMiceDown ? syncState.totalMiceDown - 1 : 0;
-    io.emit("sync:status", syncState);
+    syncStatus.totalMiceDown = syncStatus.totalMiceDown ? syncStatus.totalMiceDown - 1 : 0;
+    io.emit("sync:status", syncStatus);
   };
 
   const reset = (): void => {
-    syncState.totalMiceDown = 0;
-    io.emit("sync:status", syncState);
+    syncStatus.totalMiceDown = 0;
+    io.emit("sync:status", syncStatus);
   };
 
-  socket.emit("sync:status", syncState);
+  socket.emit("sync:status", syncStatus);
 
   socket.on("sync:mouse_down", mouseDown);
   socket.on("sync:mouse_up", mouseUp);

@@ -1,9 +1,15 @@
-export type Status = {
+import { Coordinate } from "./domain-types";
+
+export interface SyncStatus {
   totalMiceDown: number;
   miceNeeded: number;
-};
+}
 
-export type Coordinate = {
-  x: number;
-  y: number;
-};
+export interface MazeMovement {
+  mazeId: string;
+  coordinate: Coordinate;
+}
+
+export interface MazeSuccess {
+  mazeId: string;
+}

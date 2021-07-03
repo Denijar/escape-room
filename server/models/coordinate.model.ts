@@ -1,13 +1,11 @@
 import { model, Schema, Document } from "mongoose";
+import type { Coordinate } from "../../common/domain-types";
 
-export interface CoordinateDocument extends Document {
-  x: number;
-  y: number;
-}
+export interface CoordinateDocument extends Coordinate, Document {}
 
 const coordinateSchema: Schema = new Schema(
   {
-    _id: { type: Number, required: true },
+    _id: { type: String, required: true },
     x: { type: Number, required: true },
     y: { type: Number, required: true }
   },

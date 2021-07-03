@@ -1,20 +1,9 @@
 import { Request, Response } from "express";
-import { fetchCoordinate, updateCoordinate } from "../services/coordinate.service";
+import { fetchCoordinate } from "../services/coordinate.service";
 
-export const getCoordinate = async (req: Request, res: Response) => {
+export default async (req: Request, res: Response) => {
   const { id } = req.params;
-  const coordinate = await fetchCoordinate(Number(id));
-  res.status(200).json({
-    body: {
-      x: coordinate.x,
-      y: coordinate.y
-    }
-  });
-};
-
-export const putCoordinate = async (req: Request, res: Response) => {
-  const { id } = req.params;
-  const coordinate = await updateCoordinate(Number(id), req);
+  const coordinate = await fetchCoordinate(id);
   res.status(200).json({
     body: {
       x: coordinate.x,

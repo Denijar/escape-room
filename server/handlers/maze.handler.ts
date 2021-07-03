@@ -1,11 +1,16 @@
 import { Server, Socket } from "socket.io";
-import type { Coordinate } from "../../common/event-data-types";
-import { updateCoordinate } from "../services/coordinate.service";
+import type { MazeMovement, MazeSuccess } from "../../common/event-data-types";
+import { updateCoordinate, isFinish } from "../services/coordinate.service";
 
 export default (io: Server, socket: Socket): void => {
-  const movement = async (eventData: Coordinate): Promise<void> => {
+  const movement = async (eventData: MazeMovement): Promise<void> => {
     io.emit("maze:movement", eventData);
-    await updateCoordinate(1, { body: { x: eventData.x, y: eventData.y } }); // TODO: remove hard coded MazeId and fix typing
+    await updateCoordinate(eventData.mazeId, eventData.coordinate);
+
+    if (isFinish(eventData.mazeId, eventData.coordinate)) {
+      const success: MazeSuccess = { mazeId: eventData.mazeId };
+      io.emit("maze:success", success);
+    }
   };
 
   socket.on("maze:movement", movement);
