@@ -1,5 +1,6 @@
 import React from "react";
 import { MemoryRouter, Switch, Route, Redirect } from "react-router-dom";
+import LoginPage from "../pages/login-page";
 import Stage1 from "../pages/stage-1";
 import Stage2 from "../pages/stage-2";
 import Stage3 from "../pages/stage-3";
@@ -10,6 +11,9 @@ function App() {
     <div className={styles.app}>
       <MemoryRouter>
         <Switch>
+          <Route path="/login">
+            <LoginPage />
+          </Route>
           <Route path="/stage_1">
             <Stage1 />
           </Route>
@@ -20,7 +24,7 @@ function App() {
             <Stage3 />
           </Route>
           <Route path="/*">
-            <Redirect to="/stage_1" />
+            <Redirect to="/login" />
           </Route>
         </Switch>
       </MemoryRouter>

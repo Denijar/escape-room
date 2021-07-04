@@ -1,0 +1,61 @@
+.background {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #1d2951;
+}
+
+.formBox {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.title {
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+.field {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.label {
+  text-align: left;
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.input {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid silver;
+}
+
+.button {
+  width: 100%;
+  font-size: 20px;
+  padding: 10px;
+  color: white;
+  background-color: #1d2951;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.button:hover {
+  background-color: #016064;
+}
+
+.errorMessage {
+  color: #dc1c13;
+}

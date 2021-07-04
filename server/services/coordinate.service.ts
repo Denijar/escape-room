@@ -1,7 +1,9 @@
 import type { CoordinateDocument } from "../models/coordinate.model";
 import CoordinateModel from "../models/coordinate.model";
 import { Cell, Coordinate } from "../../common/domain-types";
-import maze from "../data/maze.data.json";
+import _maze from "../data/maze.data.json";
+
+const maze: { [key: string]: Cell[][] } = _maze;
 
 const createCoordinate = async (id: string): Promise<CoordinateDocument> => {
   const coordinate: Coordinate = { x: 0, y: 0 }; // TODO: this hardcodes all mazes to start at 0,0
@@ -30,6 +32,6 @@ export const updateCoordinate = async (id: string, newCoordinate: Coordinate): P
 };
 
 export const isFinish = (id: string, coordinate: Coordinate): boolean => {
-  const mazeLayout: Cell[][] = maze[<number>(<unknown>id)];
+  const mazeLayout: Cell[][] = maze[id];
   return !!mazeLayout[coordinate.y][coordinate.x].finish;
 };

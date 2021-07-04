@@ -11,3 +11,8 @@ export interface Cell {
   start?: boolean;
   finish?: boolean;
 }
+
+export interface Login {
+  username: string;
+  password: string;
+}

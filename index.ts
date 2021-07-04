@@ -8,6 +8,7 @@ import mongoose from "mongoose";
 import type { SyncStatus } from "./common/event-data-types";
 import registerSyncHandler from "./server/handlers/sync.handler";
 import registerMazeHandler from "./server/handlers/maze.handler";
+import registerLoginHandler from "./server/handlers/login.handler";
 
 // connect to database
 
@@ -65,12 +66,15 @@ server.listen(port, () => console.log(`BACK_END_SERVICE_PORT: ${port}`));
 
 const io = new IOServer(server);
 
+const logins: Map<string, string> = new Map<string, string>();
+
 const syncStatus: SyncStatus = {
   totalMiceDown: 0,
   miceNeeded: 2
 };
 
 const onConnection = (socket: Socket) => {
+  registerLoginHandler(socket, logins);
   registerSyncHandler(io, socket, syncStatus);
   registerMazeHandler(io, socket);
 };
