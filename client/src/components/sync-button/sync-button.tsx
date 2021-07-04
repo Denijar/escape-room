@@ -15,6 +15,8 @@ function SyncButton() {
   const [buttonPressed, setButtonPressed] = useState<boolean>(false);
 
   useEffect(() => {
+    socket.emit("sync:connect");
+
     socket.on("sync:status", (eventData: SyncStatus) => {
       const { totalMiceDown: totalMiceDownData, miceNeeded: miceNeededData } = eventData;
       setTotalMiceDown(totalMiceDownData);
