@@ -14,8 +14,6 @@ function UsernameContextProvider({ children }: { children: React.ReactNode }) {
     setUsername(newUsername);
   };
 
-  console.log(username);
-
   return <UsernameContext.Provider value={{ username, setUsername: handleSetUsername }}>{children}</UsernameContext.Provider>;
 }
 
