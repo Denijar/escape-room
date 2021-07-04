@@ -1,11 +1,13 @@
-import React, { FormEvent, useState, useEffect } from "react";
+import React, { FormEvent, useState, useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
+import { UsernameContext } from "../../contexts/UsernameContextProvider";
 import { Login as LoginData } from "../../../../common/domain-types";
 import socket from "../../socket";
 import styles from "./login.module.scss";
 
 function Login() {
   const history = useHistory();
+  const { setUsername: setContextUsername } = useContext(UsernameContext);
 
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -15,7 +17,8 @@ function Login() {
     socket.on("login:error", (eventData: string) => {
       setErrorMessage(`ERROR: ${eventData}`);
     });
-    socket.on("login:success", () => {
+    socket.on("login:success", (eventData: string) => {
+      setContextUsername(eventData);
       history.push("/stage_1");
     });
     return () => {
