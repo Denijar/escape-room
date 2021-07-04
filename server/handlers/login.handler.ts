@@ -22,7 +22,7 @@ export default (socket: Socket, logins: Map<string, string>): void => {
     }
 
     logins.set(socket.id, eventData.username);
-    socket.emit("login:success");
+    socket.emit("login:success", eventData.username);
   };
 
   const logout = async (): Promise<void> => {
