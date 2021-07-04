@@ -11,6 +11,7 @@ export default (io: Server, socket: Socket, syncStatus: SyncStatus): void => {
     status();
 
     if (syncStatus.totalMiceDown >= syncStatus.miceNeeded) {
+      io.emit("sync:success");
       status();
     }
   };

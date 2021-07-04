@@ -2,6 +2,7 @@ import React, { FormEvent, useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { Login as LoginData } from "../../../../common/domain-types";
 import socket from "../../socket";
+import styles from "./login.module.scss";
 
 function Login() {
   const history = useHistory();
@@ -12,7 +13,7 @@ function Login() {
 
   useEffect(() => {
     socket.on("login:error", (eventData: string) => {
-      setErrorMessage(eventData);
+      setErrorMessage(`ERROR: ${eventData}`);
     });
     socket.on("login:success", () => {
       history.push("/stage_1");
@@ -38,21 +39,27 @@ function Login() {
   };
 
   return (
-    <>
+    <div className={styles.background}>
       <form onSubmit={handleSubmit}>
-        {" "}
-        <label htmlFor="username">
-          Username:
-          <input id="username" type="text" value={username} onChange={handleChangeUsername} />{" "}
-        </label>
-        <label htmlFor="password">
-          Password:
-          <input id="password" type="password" value={password} onChange={handleChangePassword} />{" "}
-        </label>
-        <input type="submit" value="Submit" />
+        <div className={styles.formBox}>
+          <div className={styles.title}>Login</div>
+          <div className={styles.field}>
+            <label htmlFor="username" className={styles.label}>
+              Username
+            </label>
+            <input id="username" type="text" className={styles.input} value={username} onChange={handleChangeUsername} />
+          </div>
+          <div className={styles.field}>
+            <label htmlFor="password" className={styles.label}>
+              Password
+            </label>
+            <input id="password" type="password" className={styles.input} value={password} onChange={handleChangePassword} />
+          </div>
+          <input type="submit" className={styles.button} value="Submit" />
+          <div className={styles.errorMessage}>{errorMessage}</div>
+        </div>
       </form>
-      <div>{errorMessage}</div>
-    </>
+    </div>
   );
 }
 

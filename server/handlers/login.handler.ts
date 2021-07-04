@@ -5,7 +5,7 @@ import verifyCredentials from "../services/login.service";
 export default (socket: Socket, logins: Map<string, string>): void => {
   const login = async (eventData: Login): Promise<void> => {
     if (!verifyCredentials(eventData.username, eventData.password)) {
-      socket.emit("login:error", "Username and/or password is not correct");
+      socket.emit("login:error", "Username and/or password is incorrect");
       return;
     }
 

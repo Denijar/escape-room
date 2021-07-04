@@ -4,7 +4,7 @@ import { faChevronUp, faChevronDown, faChevronLeft, faChevronRight } from "@fort
 import MazeCell from "./maze-cell";
 import DirectionButton from "./direction-button";
 import type { InitialCoordinate, MazeLayout } from "../../../../common/api-data-types";
-import type { MazeMovement, MazeSuccess } from "../../../../common/event-data-types";
+import type { MazeStatus, MazeSuccess } from "../../../../common/event-data-types";
 import type { Coordinate } from "../../../../common/domain-types";
 import styles from "./maze.module.scss";
 import useGet from "../../hooks/useGet";
@@ -31,7 +31,7 @@ function Maze({ id, nextStageURL, noWalls = false, showUp = true, showDown = tru
   const [currentCell, setCurrentCell] = useState<Coordinate | undefined>(undefined);
 
   useEffect(() => {
-    socket.on("maze:movement", (eventData: MazeMovement) => {
+    socket.on("maze:status", (eventData: MazeStatus) => {
       setCurrentCell(eventData.coordinate);
     });
 
@@ -42,14 +42,19 @@ function Maze({ id, nextStageURL, noWalls = false, showUp = true, showDown = tru
     });
 
     return () => {
-      socket.off("maze:movement");
+      socket.off("maze:status");
       socket.off("maze:success");
     };
   }, []);
 
   useEffect(() => {
     if (initialCoordinate) {
-      setCurrentCell({ x: initialCoordinate.body.x, y: initialCoordinate.body.y });
+      setCurrentCell(initialCoordinate.body);
+      const status: MazeStatus = {
+        mazeId: id,
+        coordinate: initialCoordinate.body
+      };
+      socket.emit("maze:connect", status);
     }
   }, [initialCoordinate]);
 
@@ -74,8 +79,8 @@ function Maze({ id, nextStageURL, noWalls = false, showUp = true, showDown = tru
             break;
         }
         setCurrentCell(newCurrentCell);
-        const mazeMovement: MazeMovement = { mazeId: id, coordinate: newCurrentCell };
-        socket.emit("maze:movement", mazeMovement);
+        const mazeStatus: MazeStatus = { mazeId: id, coordinate: newCurrentCell };
+        socket.emit("maze:status", mazeStatus);
       }
     }
   };

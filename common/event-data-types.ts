@@ -5,7 +5,7 @@ export interface SyncStatus {
   miceNeeded: number;
 }
 
-export interface MazeMovement {
+export interface MazeStatus {
   mazeId: string;
   coordinate: Coordinate;
 }
