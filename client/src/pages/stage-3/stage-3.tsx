@@ -1,8 +1,16 @@
 import React from "react";
+import { faBacterium, faBone, faCandyCane, faCloudSun, faFeather } from "@fortawesome/free-solid-svg-icons";
 import Input from "../../components/input";
 
 function Stage3() {
-  return <Input />;
+  const icons = [
+    { image: faBacterium, color: "purple" },
+    { image: faBone, color: "orange" },
+    { image: faCandyCane, color: "red" },
+    { image: faCloudSun, color: "green" },
+    { image: faFeather, color: "magenta" }
+  ];
+  return <Input icons={icons} />;
 }
 
 export default Stage3;

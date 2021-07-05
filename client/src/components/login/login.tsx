@@ -59,7 +59,7 @@ function Login() {
             <input id="password" type="password" className={styles.input} value={password} onChange={handleChangePassword} />
           </div>
           <input type="submit" className={styles.button} value="Submit" />
-          <div className={styles.errorMessage}>{errorMessage}</div>
+          {errorMessage && <div className={styles.errorMessage}>{errorMessage}</div>}
         </div>
       </form>
     </div>

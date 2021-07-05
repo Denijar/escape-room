@@ -7,7 +7,7 @@
   background-color: #1d2951;
 }
 
-.formBox {
+.container {
   width: 400px;
   display: flex;
   flex-direction: column;
@@ -17,28 +17,38 @@
   background-color: white;
 }
 
-.title {
-  font-size: 30px;
+.prompt {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.icons {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
   margin-bottom: 20px;
 }
 
 .field {
   width: 100%;
   display: flex;
-  flex-direction: column;
+  align-items: center;
   margin-bottom: 20px;
 }
 
 .label {
-  text-align: left;
   font-size: 20px;
-  margin-bottom: 5px;
+  vertical-align: middle;
+  padding-right: 10px;
 }
 
 .input {
+  width: 100%;
   padding: 10px;
   border-radius: 5px;
   border: 1px solid silver;
+  font-size: 15px;
 }
 
 .button {
@@ -53,9 +63,4 @@
 
 .button:hover {
   background-color: #016064;
-}
-
-.errorMessage {
-  margin-top: 20px;
-  color: #dc1c13;
 }
