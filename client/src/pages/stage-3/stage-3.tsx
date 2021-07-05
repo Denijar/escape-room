@@ -1,14 +1,8 @@
-import React, { useContext } from "react";
-import { UsernameContext } from "../../contexts/UsernameContextProvider";
+import React from "react";
+import Input from "../../components/input";
 
 function Stage3() {
-  const { username } = useContext(UsernameContext);
-  return (
-    <>
-      <div>Stage 3</div>
-      <div>{username}</div>
-    </>
-  );
+  return <Input />;
 }
 
 export default Stage3;
