@@ -7,7 +7,7 @@ import type { InitialCoordinate, MazeLayout } from "../../../../common/api-data-
 import type { MazeStatus, MazeSuccess } from "../../../../common/event-data-types";
 import type { Coordinate } from "../../../../common/domain-types";
 import styles from "./maze.module.scss";
-import useGet from "../../hooks/useGet";
+import useFetch from "../../hooks/useFetch";
 import socket from "../../socket";
 
 interface MazeProps {
@@ -25,8 +25,8 @@ export type Direction = "U" | "D" | "L" | "R";
 function Maze({ id, nextStageURL, noWalls = false, showUp = true, showDown = true, showLeft = true, showRight = true }: MazeProps) {
   const history = useHistory();
 
-  const { response: mazeLayout, loading: mazeLayoutLoading } = useGet<MazeLayout>(`/api/maze/${id}`);
-  const { response: initialCoordinate } = useGet<InitialCoordinate>(`/api/maze/${id}/coordinate`);
+  const { response: mazeLayout, loading: mazeLayoutLoading } = useFetch<MazeLayout>(`/api/maze/${id}`);
+  const { response: initialCoordinate } = useFetch<InitialCoordinate>(`/api/maze/${id}/coordinate`);
 
   const [currentCell, setCurrentCell] = useState<Coordinate | undefined>(undefined);
 

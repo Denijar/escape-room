@@ -21,3 +21,8 @@ it("renders the Stage3 page", () => {
   const shallowComponent = shallow(<App />);
   expect(shallowComponent).toContainExactlyOneMatchingElement("Stage3");
 });
+
+it("renders the Stage4 page", () => {
+  const shallowComponent = shallow(<App />);
+  expect(shallowComponent).toContainExactlyOneMatchingElement("Stage4");
+});
