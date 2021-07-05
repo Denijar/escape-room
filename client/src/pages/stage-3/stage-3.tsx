@@ -10,7 +10,7 @@ function Stage3() {
     { image: faCloudSun, color: "green" },
     { image: faFeather, color: "magenta" }
   ];
-  return <Input icons={icons} />;
+  return <Input id="0" nextStageURL="/stage_4" icons={icons} />;
 }
 
 export default Stage3;
