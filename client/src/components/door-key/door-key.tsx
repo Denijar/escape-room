@@ -1,7 +1,9 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowCircleRight, faKey } from "@fortawesome/free-solid-svg-icons";
+import { Icon } from "@iconify/react";
+import arrowRightCircleFill from "@iconify-icons/bi/arrow-right-circle-fill";
+import keyFill from "@iconify-icons/bi/key-fill";
+
 import styles from "./door-key.module.scss";
 
 interface DoorKeyProps {
@@ -21,14 +23,14 @@ function DoorKey({ nextStageURL, colour, keyHolder }: DoorKeyProps) {
     <>
       <div className={styles.background}>
         <div style={{ color: colour }}>
-          <FontAwesomeIcon className={styles.key} icon={faKey} size="8x" />
+          <Icon width={200} icon={keyFill} />
         </div>
         <div className={styles.text}>
           <div>{`You have found the ${colour} key!`}</div>
           <div>{`Ask ${keyHolder} to give it to you`}</div>
         </div>
-        <div className={styles.next}>
-          <FontAwesomeIcon className={styles.next} icon={faArrowCircleRight} size="3x" onClick={handleClick} />
+        <div tabIndex={0} role="button" className={styles.next} onClick={handleClick}>
+          <Icon className={styles.next} width={50} icon={arrowRightCircleFill} />
         </div>
       </div>
     </>

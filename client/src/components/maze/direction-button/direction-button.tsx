@@ -1,17 +1,17 @@
 import React from "react";
-import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Icon } from "@iconify/react";
+import { IconifyIcon } from "@iconify/types";
 import styles from "./direction-button.module.scss";
 
 interface DirectionButtonProps {
   onClick: () => void;
-  icon: IconDefinition;
+  icon: IconifyIcon;
 }
 
 function DirectionButton({ onClick, icon }: DirectionButtonProps) {
   return (
-    <div className={styles.button}>
-      <FontAwesomeIcon icon={icon} size="4x" onClick={onClick} />
+    <div role="button" tabIndex={0} className={styles.button} onClick={onClick}>
+      <Icon icon={icon} width={90} />
     </div>
   );
 }

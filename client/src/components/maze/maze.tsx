@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { faChevronUp, faChevronDown, faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import chevronUp from "@iconify-icons/bi/chevron-up";
+import chevronDown from "@iconify-icons/bi/chevron-down";
+import chevronLeft from "@iconify-icons/bi/chevron-left";
+import chevronRight from "@iconify-icons/bi/chevron-right";
 import MazeCell from "./maze-cell";
 import DirectionButton from "./direction-button";
 import type { InitialCoordinate, MazeLayout } from "../../../../common/api-data-types";
@@ -87,9 +90,9 @@ function Maze({ id, nextStageURL, noWalls = false, showUp = true, showDown = tru
 
   return (
     <div className={styles.upDown}>
-      {showUp && <DirectionButton icon={faChevronUp} onClick={() => handleMovement("U")} />}
+      {showUp && <DirectionButton icon={chevronUp} onClick={() => handleMovement("U")} />}
       <div className={styles.leftRight}>
-        {showLeft && <DirectionButton icon={faChevronLeft} onClick={() => handleMovement("L")} />}
+        {showLeft && <DirectionButton icon={chevronLeft} onClick={() => handleMovement("L")} />}
 
         <div className={styles.maze}>
           {!mazeLayoutLoading &&
@@ -113,9 +116,9 @@ function Maze({ id, nextStageURL, noWalls = false, showUp = true, showDown = tru
             ))}
         </div>
 
-        {showRight && <DirectionButton icon={faChevronRight} onClick={() => handleMovement("R")} />}
+        {showRight && <DirectionButton icon={chevronRight} onClick={() => handleMovement("R")} />}
       </div>
-      {showDown && <DirectionButton icon={faChevronDown} onClick={() => handleMovement("D")} />}
+      {showDown && <DirectionButton icon={chevronDown} onClick={() => handleMovement("D")} />}
     </div>
   );
 }
