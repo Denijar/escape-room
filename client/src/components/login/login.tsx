@@ -5,7 +5,11 @@ import { Login as LoginData } from "../../../../common/domain-types";
 import socket from "../../socket";
 import styles from "./login.module.scss";
 
-function Login() {
+interface LoginProps {
+  nextStageURL: string;
+}
+
+function Login({ nextStageURL }: LoginProps) {
   const history = useHistory();
   const { setUsername: setContextUsername } = useContext(UsernameContext);
 
@@ -19,7 +23,7 @@ function Login() {
     });
     socket.on("login:success", (eventData: string) => {
       setContextUsername(eventData);
-      history.push("/stage_1");
+      history.push(nextStageURL);
     });
     return () => {
       socket.off("login:error");

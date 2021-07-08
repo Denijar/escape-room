@@ -7,7 +7,11 @@ import socket from "../../socket";
 import type { SyncStatus } from "../../../../common/event-data-types";
 import styles from "./sync-button.module.scss";
 
-function SyncButton() {
+interface SyncButtonProps {
+  nextStageURL: string;
+}
+
+function SyncButton({ nextStageURL }: SyncButtonProps) {
   const history = useHistory();
 
   const [totalMiceDown, setTotalMiceDown] = useState<number | string>("?");
@@ -47,7 +51,7 @@ function SyncButton() {
   };
 
   const handleNextStage = () => {
-    history.push("/stage_2");
+    history.push(nextStageURL);
   };
 
   return (

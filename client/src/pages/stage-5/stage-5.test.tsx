@@ -1,8 +1,8 @@
 import React from "@testing-library/react";
 import { shallow } from "enzyme";
-import Stage1 from ".";
+import Stage5 from ".";
 
 it("renders a SyncButton component", () => {
-  const shallowComponent = shallow(<Stage1 nextStageURL="" />);
+  const shallowComponent = shallow(<Stage5 nextStageURL="" />);
   expect(shallowComponent).toContainExactlyOneMatchingElement("SyncButton");
 });

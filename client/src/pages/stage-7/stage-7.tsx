@@ -6,11 +6,11 @@ import suitDiamondFill from "@iconify-icons/bi/suit-diamond-fill";
 
 import Input from "../../components/input";
 
-interface Stage4Props {
+interface Stage7Props {
   nextStageURL: string;
 }
 
-function Stage4({ nextStageURL }: Stage4Props) {
+function Stage7({ nextStageURL }: Stage7Props) {
   const icons = [
     { image: suitHeartFill, color: "#FF0000", width: 80 },
     { image: suitClubFill, color: "#000000", width: 50 },
@@ -20,4 +20,4 @@ function Stage4({ nextStageURL }: Stage4Props) {
   return <Input id="0" nextStageURL={nextStageURL} icons={icons} />;
 }
 
-export default Stage4;
+export default Stage7;

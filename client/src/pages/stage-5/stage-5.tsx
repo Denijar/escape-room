@@ -1,12 +1,12 @@
 import React from "react";
 import SyncButton from "../../components/sync-button";
 
-interface Stage1Props {
+interface Stage5Props {
   nextStageURL: string;
 }
 
-function Stage1({ nextStageURL }: Stage1Props) {
+function Stage5({ nextStageURL }: Stage5Props) {
   return <SyncButton nextStageURL={nextStageURL} />;
 }
 
-export default Stage1;
+export default Stage5;

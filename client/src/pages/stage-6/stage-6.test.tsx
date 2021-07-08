@@ -1,6 +1,6 @@
 import React from "@testing-library/react";
 import { shallow } from "enzyme";
-import Stage2 from ".";
+import Stage6 from ".";
 
 jest.mock("react", () => {
   const ActualReact = jest.requireActual("react");
@@ -10,7 +10,7 @@ jest.mock("react", () => {
   };
 });
 
-it("renders a Maze component", () => {
-  const shallowComponent = shallow(<Stage2 nextStageURL="" />);
+it("renders a Maze components", () => {
+  const shallowComponent = shallow(<Stage6 nextStageURL="" />);
   expect(shallowComponent).toContainExactlyOneMatchingElement("Maze");
 });
