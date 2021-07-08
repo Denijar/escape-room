@@ -3,23 +3,26 @@
   height: 100px;
   margin: 1px;
   border: 5px solid transparent;
-  background-color: lightgrey;
+  background-color: #c5c7d3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .left {
-  border-left: 5px solid #1d2951;
+  border-left: 5px solid black;
 }
 
 .right {
-  border-right: 5px solid #1d2951;
+  border-right: 5px solid black;
 }
 
 .up {
-  border-top: 5px solid #1d2951;
+  border-top: 5px solid black;
 }
 
 .down {
-  border-bottom: 5px solid #1d2951;
+  border-bottom: 5px solid black;
 }
 
 .noWalls {
@@ -27,13 +30,9 @@
 }
 
 .finish {
-  background-color: #52b2bf;
+  background-color: #016064;
 }
 
 .start {
-  background-color: #52b2bf;
-}
-
-.current {
-  background-color: red;
+  background-color: #1d2951;
 }

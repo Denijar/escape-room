@@ -1,4 +1,6 @@
 import React from "react";
+import { Icon } from "@iconify/react";
+import starFill from "@iconify-icons/bi/star-fill";
 import { Cell } from "../../../../../common/domain-types";
 import styles from "./maze-cell.module.scss";
 
@@ -14,8 +16,10 @@ function MazeCell({ L, R, U, D, noWalls, current, start, finish }: MazeCellProps
     <div
       className={`${styles.square} ${L && styles.left} ${R && styles.right} ${U && styles.up} ${D && styles.down} ${
         noWalls && styles.noWalls
-      } ${start && styles.start} ${finish && styles.finish} ${current && styles.current}`}
-    />
+      } ${start && styles.start} ${finish && styles.finish}`}
+    >
+      {current && <Icon icon={starFill} width={60} color="#fc6a03" />}
+    </div>
   );
 }
 
