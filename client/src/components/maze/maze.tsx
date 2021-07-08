@@ -89,36 +89,38 @@ function Maze({ id, nextStageURL, noWalls = false, showUp = true, showDown = tru
   };
 
   return (
-    <div className={styles.upDown}>
-      {showUp && <DirectionButton icon={chevronUp} onClick={() => handleMovement("U")} />}
-      <div className={styles.leftRight}>
-        {showLeft && <DirectionButton icon={chevronLeft} onClick={() => handleMovement("L")} />}
+    <div className={styles.container}>
+      <div className={styles.upDown}>
+        {showUp && <DirectionButton icon={chevronUp} onClick={() => handleMovement("U")} />}
+        <div className={styles.leftRight}>
+          {showLeft && <DirectionButton icon={chevronLeft} onClick={() => handleMovement("L")} />}
 
-        <div className={styles.maze}>
-          {!mazeLayoutLoading &&
-            currentCell &&
-            mazeLayout?.body.map((row, i) => (
-              <div key={i} className={styles.row}>
-                {row.map((cell, j) => (
-                  <MazeCell
-                    key={`${i},${j}`}
-                    L={cell.L}
-                    R={cell.R}
-                    U={cell.U}
-                    D={cell.D}
-                    noWalls={noWalls}
-                    current={currentCell.x === j && currentCell.y === i}
-                    start={cell.start || false}
-                    finish={cell.finish || false}
-                  />
-                ))}
-              </div>
-            ))}
+          <div className={styles.maze}>
+            {!mazeLayoutLoading &&
+              currentCell &&
+              mazeLayout?.body.map((row, i) => (
+                <div key={i} className={styles.row}>
+                  {row.map((cell, j) => (
+                    <MazeCell
+                      key={`${i},${j}`}
+                      L={cell.L}
+                      R={cell.R}
+                      U={cell.U}
+                      D={cell.D}
+                      noWalls={noWalls}
+                      current={currentCell.x === j && currentCell.y === i}
+                      start={cell.start || false}
+                      finish={cell.finish || false}
+                    />
+                  ))}
+                </div>
+              ))}
+          </div>
+
+          {showRight && <DirectionButton icon={chevronRight} onClick={() => handleMovement("R")} />}
         </div>
-
-        {showRight && <DirectionButton icon={chevronRight} onClick={() => handleMovement("R")} />}
+        {showDown && <DirectionButton icon={chevronDown} onClick={() => handleMovement("D")} />}
       </div>
-      {showDown && <DirectionButton icon={chevronDown} onClick={() => handleMovement("D")} />}
     </div>
   );
 }
