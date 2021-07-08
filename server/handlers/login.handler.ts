@@ -4,14 +4,16 @@ import verifyCredentials from "../services/login.service";
 
 export default (socket: Socket, logins: Map<string, string>): void => {
   const login = async (eventData: Login): Promise<void> => {
-    if (!verifyCredentials(eventData.username, eventData.password)) {
+    const username = eventData.username.toLowerCase();
+    const password = eventData.password.toLowerCase();
+    if (!verifyCredentials(username, password)) {
       socket.emit("login:error", "Username and/or password is incorrect");
       return;
     }
 
     let alreadyUsed = false;
-    logins.forEach((username) => {
-      if (eventData.username === username) {
+    logins.forEach((existingUsername) => {
+      if (username === existingUsername) {
         alreadyUsed = true;
       }
     });
@@ -21,8 +23,8 @@ export default (socket: Socket, logins: Map<string, string>): void => {
       return;
     }
 
-    logins.set(socket.id, eventData.username);
-    socket.emit("login:success", eventData.username);
+    logins.set(socket.id, username);
+    socket.emit("login:success", username);
   };
 
   const logout = async (): Promise<void> => {
