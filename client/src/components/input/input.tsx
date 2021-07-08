@@ -1,14 +1,14 @@
 import React, { FormEvent, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Icon } from "@iconify/react";
+import { IconifyIcon } from "@iconify/types";
 import styles from "./input.module.scss";
 import useGet from "../../hooks/useGet";
 
 interface InputProps {
   id: string;
   nextStageURL: string;
-  icons?: { image: IconDefinition; color?: string }[];
+  icons?: { image: IconifyIcon; color?: string; width?: number }[];
   prompt?: string;
 }
 
@@ -43,7 +43,7 @@ function Input({ id, nextStageURL, icons, prompt }: InputProps) {
             <div className={styles.icons}>
               {icons.map((icon, index) => (
                 <div key={index} className={styles.icon} style={{ color: icon.color || "black" }}>
-                  <FontAwesomeIcon icon={icon.image} size="4x" />
+                  <Icon width={icon.width || 60} icon={icon.image} />
                 </div>
               ))}
             </div>

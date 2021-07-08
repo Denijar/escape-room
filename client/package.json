@@ -13,9 +13,9 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.35",
-    "@fortawesome/free-solid-svg-icons": "^5.15.3",
-    "@fortawesome/react-fontawesome": "^0.1.14",
+    "@iconify-icons/bi": "^1.1.5",
+    "@iconify/react": "^1.1.4",
+    "@iconify/types": "^1.0.6",
     "@testing-library/jest-dom": "^5.13.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
@@ -55,5 +55,10 @@
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.2",
     "enzyme": "^3.11.0",
     "jest-enzyme": "^7.1.2"
+  },
+  "jest": {
+    "transformIgnorePatterns": [
+      "node_modules/(?!@iconify-icons)"
+    ]
   }
 }

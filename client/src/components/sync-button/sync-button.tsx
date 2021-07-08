@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDoorClosed, faDoorOpen } from "@fortawesome/free-solid-svg-icons";
+import { Icon } from "@iconify/react";
+import doorClosedFill from "@iconify-icons/bi/door-closed-fill";
+import doorOpenFill from "@iconify-icons/bi/door-open-fill";
 import socket from "../../socket";
 import type { SyncStatus } from "../../../../common/event-data-types";
 import styles from "./sync-button.module.scss";
@@ -60,9 +61,11 @@ function SyncButton() {
     >
       <div className={styles.icon}>
         {success ? (
-          <FontAwesomeIcon icon={faDoorOpen} size="6x" onClick={handleNextStage} />
+          <div tabIndex={0} role="button" onClick={handleNextStage}>
+            <Icon icon={doorOpenFill} width={100} height={100} />
+          </div>
         ) : (
-          <FontAwesomeIcon icon={faDoorClosed} size="6x" />
+          <Icon icon={doorClosedFill} width={100} height={100} />
         )}
       </div>
       <div>{`${totalMiceDown} OUT OF ${miceNeeded}`}</div>

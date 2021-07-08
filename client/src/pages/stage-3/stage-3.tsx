@@ -1,14 +1,17 @@
 import React from "react";
-import { faBacterium, faBone, faCandyCane, faCloudSun, faFeather } from "@fortawesome/free-solid-svg-icons";
+import suitHeartFill from "@iconify-icons/bi/suit-heart-fill";
+import suitClubFill from "@iconify-icons/bi/suit-club-fill";
+import suitSpadeFill from "@iconify-icons/bi/suit-spade-fill";
+import suitDiamondFill from "@iconify-icons/bi/suit-diamond-fill";
+
 import Input from "../../components/input";
 
 function Stage3() {
   const icons = [
-    { image: faBacterium, color: "purple" },
-    { image: faBone, color: "orange" },
-    { image: faCandyCane, color: "red" },
-    { image: faCloudSun, color: "green" },
-    { image: faFeather, color: "magenta" }
+    { image: suitHeartFill, color: "#FF0000", width: 80 },
+    { image: suitClubFill, color: "#000000", width: 50 },
+    { image: suitSpadeFill, color: "#249225", width: 80 },
+    { image: suitDiamondFill, color: "#800080" }
   ];
   return <Input id="0" nextStageURL="/stage_4" icons={icons} />;
 }
