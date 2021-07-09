@@ -27,7 +27,7 @@ function DoorKey({ nextStageURL, colour, keyHolder }: DoorKeyProps) {
         </div>
         <div className={styles.text}>
           <div>{`You have found the ${colour} key!`}</div>
-          <div>{`Ask ${keyHolder} to give it to you`}</div>
+          <div>{`Ask ${keyHolder} to give it to you.`}</div>
         </div>
         {nextStageURL && (
           <div tabIndex={0} role="button" className={styles.next} onClick={handleClick}>

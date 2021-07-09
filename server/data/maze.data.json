@@ -126,7 +126,7 @@
         "L": false,
         "R": false,
         "U": true,
-        "D": true
+        "D": false
       },
       {
         "L": false,
@@ -150,12 +150,12 @@
       },
       {
         "L": true,
-        "R": false,
-        "U": true,
+        "R": true,
+        "U": false,
         "D": false
       },
       {
-        "L": false,
+        "L": true,
         "R": true,
         "U": false,
         "D": true

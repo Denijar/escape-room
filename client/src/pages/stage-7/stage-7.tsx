@@ -1,8 +1,4 @@
 import React from "react";
-import suitHeartFill from "@iconify-icons/bi/suit-heart-fill";
-import suitClubFill from "@iconify-icons/bi/suit-club-fill";
-import suitSpadeFill from "@iconify-icons/bi/suit-spade-fill";
-import suitDiamondFill from "@iconify-icons/bi/suit-diamond-fill";
 
 import Input from "../../components/input";
 
@@ -11,13 +7,7 @@ interface Stage7Props {
 }
 
 function Stage7({ nextStageURL }: Stage7Props) {
-  const icons = [
-    { image: suitHeartFill, color: "#FF0000", width: 80 },
-    { image: suitClubFill, color: "#000000", width: 50 },
-    { image: suitSpadeFill, color: "#249225", width: 80 },
-    { image: suitDiamondFill, color: "#800080" }
-  ];
-  return <Input id="0" nextStageURL={nextStageURL} icons={icons} />;
+  return <Input id="1" nextStageURL={nextStageURL} prompt="Total mass. Ignore the decimal point." />;
 }
 
 export default Stage7;

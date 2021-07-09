@@ -6,7 +6,7 @@ interface Stage8Props {
 }
 
 function Stage8({ nextStageURL }: Stage8Props) {
-  return <DoorKey nextStageURL={nextStageURL} colour="green" keyHolder="Christian" />;
+  return <DoorKey nextStageURL={nextStageURL} colour="green" keyHolder="Ruth" />;
 }
 
 export default Stage8;

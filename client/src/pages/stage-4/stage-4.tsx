@@ -1,8 +1,8 @@
 import React from "react";
-import suitHeartFill from "@iconify-icons/bi/suit-heart-fill";
-import suitClubFill from "@iconify-icons/bi/suit-club-fill";
-import suitSpadeFill from "@iconify-icons/bi/suit-spade-fill";
-import suitDiamondFill from "@iconify-icons/bi/suit-diamond-fill";
+import cloudMoonFill from "@iconify-icons/bi/cloud-moon-fill";
+import treeFill from "@iconify-icons/bi/tree-fill";
+import giftFill from "@iconify-icons/bi/gift-fill";
+import piggyBankFill from "@iconify-icons/bi/piggy-bank-fill";
 
 import Input from "../../components/input";
 
@@ -12,10 +12,11 @@ interface Stage4Props {
 
 function Stage4({ nextStageURL }: Stage4Props) {
   const icons = [
-    { image: suitHeartFill, color: "#FF0000", width: 80 },
-    { image: suitClubFill, color: "#000000", width: 50 },
-    { image: suitSpadeFill, color: "#249225", width: 80 },
-    { image: suitDiamondFill, color: "#800080" }
+    { image: cloudMoonFill, color: "#3c1361" },
+    { image: treeFill, color: "#fc6a03" },
+    { image: giftFill, color: "red" },
+    { image: piggyBankFill, color: "green" },
+    { image: cloudMoonFill, color: "magenta" }
   ];
   return <Input id="0" nextStageURL={nextStageURL} icons={icons} />;
 }

@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import { UsernameContext } from "../../contexts/UsernameContextProvider";
+import React from "react";
 import Maze from "../../components/maze";
 
 interface Stage5Props {
@@ -7,14 +6,7 @@ interface Stage5Props {
 }
 
 function Stage5({ nextStageURL }: Stage5Props) {
-  const { username } = useContext(UsernameContext);
-
-  return (
-    <div>
-      {username === "jacket" && <Maze id="1" nextStageURL={nextStageURL} noWalls />}\
-      {username === "username" && <Maze id="1" nextStageURL={nextStageURL} noWalls />}
-    </div>
-  );
+  return <Maze id="1" nextStageURL={nextStageURL} noWalls />;
 }
 
 export default Stage5;

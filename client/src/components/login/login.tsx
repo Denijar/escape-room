@@ -60,7 +60,7 @@ function Login({ nextStageURL }: LoginProps) {
             <label htmlFor="password" className={styles.label}>
               Password
             </label>
-            <input id="password" type="password" className={styles.input} value={password} onChange={handleChangePassword} />
+            <input id="password" type="text" className={styles.input} value={password} onChange={handleChangePassword} />
           </div>
           <input type="submit" className={styles.button} value="Submit" />
           {errorMessage && <div className={styles.errorMessage}>{errorMessage}</div>}
