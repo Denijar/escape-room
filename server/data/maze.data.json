@@ -106,5 +106,113 @@
         "finish": true
       }
     ]
+  ],
+  "1": [
+    [
+      {
+        "L": true,
+        "R": true,
+        "U": true,
+        "D": false,
+        "start": true
+      },
+      {
+        "L": true,
+        "R": false,
+        "U": true,
+        "D": false
+      },
+      {
+        "L": false,
+        "R": false,
+        "U": true,
+        "D": false
+      },
+      {
+        "L": false,
+        "R": true,
+        "U": true,
+        "D": false
+      }
+    ],
+    [
+      {
+        "L": true,
+        "R": false,
+        "U": false,
+        "D": true
+      },
+      {
+        "L": false,
+        "R": true,
+        "U": false,
+        "D": true
+      },
+      {
+        "L": true,
+        "R": true,
+        "U": false,
+        "D": false
+      },
+      {
+        "L": true,
+        "R": true,
+        "U": false,
+        "D": true
+      }
+    ],
+    [
+      {
+        "L": true,
+        "R": false,
+        "U": true,
+        "D": false
+      },
+      {
+        "L": false,
+        "R": true,
+        "U": true,
+        "D": false
+      },
+      {
+        "L": true,
+        "R": false,
+        "U": false,
+        "D": true
+      },
+      {
+        "L": false,
+        "R": true,
+        "U": true,
+        "D": false
+      }
+    ],
+    [
+      {
+        "L": true,
+        "R": true,
+        "U": false,
+        "D": true,
+        "finish": true
+      },
+      {
+        "L": true,
+        "R": false,
+        "U": false,
+        "D": true
+      },
+      {
+        "L": false,
+        "R": false,
+        "U": true,
+        "D": true
+      },
+      {
+        "L": false,
+        "R": true,
+        "U": false,
+        "D": true
+      }
+    ]
   ]
 }

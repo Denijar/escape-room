@@ -5,7 +5,11 @@ import { Login as LoginData } from "../../../../common/domain-types";
 import socket from "../../socket";
 import styles from "./login.module.scss";
 
-function Login() {
+interface LoginProps {
+  nextStageURL: string;
+}
+
+function Login({ nextStageURL }: LoginProps) {
   const history = useHistory();
   const { setUsername: setContextUsername } = useContext(UsernameContext);
 
@@ -19,7 +23,7 @@ function Login() {
     });
     socket.on("login:success", (eventData: string) => {
       setContextUsername(eventData);
-      history.push("/stage_1");
+      history.push(nextStageURL);
     });
     return () => {
       socket.off("login:error");
@@ -56,7 +60,7 @@ function Login() {
             <label htmlFor="password" className={styles.label}>
               Password
             </label>
-            <input id="password" type="password" className={styles.input} value={password} onChange={handleChangePassword} />
+            <input id="password" type="text" className={styles.input} value={password} onChange={handleChangePassword} />
           </div>
           <input type="submit" className={styles.button} value="Submit" />
           {errorMessage && <div className={styles.errorMessage}>{errorMessage}</div>}

@@ -1,10 +1,10 @@
 {
-  "1234": {
-    "username": "1234",
-    "password": "DogLover"
+  "jacket": {
+    "username": "jacket",
+    "password": "jacket"
   },
-  "7777": {
-    "username": "1234",
-    "password": "RedFlowers"
+  "username": {
+    "username": "username",
+    "password": "username"
   }
 }

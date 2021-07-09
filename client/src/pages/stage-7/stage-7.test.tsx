@@ -1,8 +1,8 @@
 import React from "@testing-library/react";
 import { shallow } from "enzyme";
-import Stage4 from ".";
+import Stage7 from ".";
 
 it("renders an Input component", () => {
-  const shallowComponent = shallow(<Stage4 nextStageURL="" />);
+  const shallowComponent = shallow(<Stage7 nextStageURL="" />);
   expect(shallowComponent).toContainExactlyOneMatchingElement("Input");
 });
